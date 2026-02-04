@@ -1,0 +1,62 @@
+[
+ {
+ "id": 1,
+ "title": "Inception",
+ "description": "Un voleur qui s'infiltre dans les rêves des gens pour voler leurs secrets doit accomplir l'inverse : implanter une idée.",
+ "poster": "https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+ "backdrop": "https://image.tmdb.org/t/p/original/s3TBrRGB1iav7gFOCNx3H31MoES.jpg",
+ "genre": "Science-Fiction",
+ "year": 2010,
+ "duration": 148,
+ "price": 3.99,
+ "rating": 8.8
+ },
+ {
+ "id": 2,
+ "title": "The Dark Knight",
+ "description": "Batman affronte le Joker, un criminel anarchiste qui veut plonger Gotham dans le chaos.",
+ "poster": "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+ "backdrop": "https://image.tmdb.org/t/p/original/hkBaDkMWbLaf8B1lsWsKX7Ew3Xq.jpg",
+  "genre": "Action",
+ "year": 2008,
+ "duration": 152,
+ "price": 3.99,
+ "rating": 9.0
+ },
+ {
+ "id": 3,
+ "title": "Interstellar",
+ "description": "Une équipe d'explorateurs voyage à travers un trou de ver dans l'espace pour assurer la survie de l'humanité.",
+ "poster": "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+ "backdrop": "https://image.tmdb.org/t/p/original/xu9zaAevzQ5nnrsXN6JcahLnG4i.jpg",
+ "genre": "Science-Fiction",
+ "year": 2014,
+ "duration": 169,
+ "price": 4.99,
+ "rating": 8.6
+ },
+ {
+ "id": 4,
+ "title": "Pulp Fiction",
+ "description": "Les histoires entrelacées de criminels, d'un boxeur et d'un couple de braqueurs dans le Los Angeles criminel.",
+ "poster": "https://image.tmdb.org/t/p/w500/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg",
+ "backdrop": "https://image.tmdb.org/t/p/original/suaEOtk1N1sgg2MTM7oZd2cfVp3.jpg",
+ "genre": "Thriller",
+ "year": 1994,
+ "duration": 154,
+  "price": 3.99,
+ "rating": 8.9
+ },
+ {
+ "id": 5,
+ "title": "Forrest Gump",
+ "description": "L'histoire de Forrest Gump, un homme simple d'esprit qui traverse plusieurs décennies de l'histoire américaine.",
+ "poster": "https://image.tmdb.org/t/p/w500/arw2vcBveWOVZr6pxd9XTd1TdQa.jpg",
+ "backdrop": "https://image.tmdb.org/t/p/original/7c9UVPPiTPltouxRVY6N9uYzpxx.jpg",
+ "genre": "Drame",
+ "year": 1994,
+ "duration": 142,
+ "price": 3.99,
+ "rating": 8.8
+ }
+] 

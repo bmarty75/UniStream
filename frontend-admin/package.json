@@ -1,0 +1,11 @@
+{
+ "name": "unistream-admin",
+ "version": "1.0.0",
+ "type": "module",
+"scripts": {
+ "dev": "concurrently \"nodemon server.js\" \"npm run watch:css\"",
+ "watch:css": "tailwindcss -i ./public/css/input.css -o ./public/css/output.css --watch",
+ "build:css": "tailwindcss -i ./public/css/input.css -o ./public/css/output.css --minify",
+ "start": "node server.js"
+ }
+} 
