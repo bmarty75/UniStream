@@ -5,9 +5,9 @@ function MovieList({ title, movies }) {
     <section className="py-8">
       <h2 className="text-2xl md:text-3xl font-bold mb-6 px-4">{title}</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 px-4">
-        /* Todo : Pour chaque movie
-            affichez une movieCard en utilisant les props
-        */
+        {movies.map((movie)=>(
+            <MovieCard key={movie.id} movie={movie} />
+        ))}
       </div>
     </section>
   );

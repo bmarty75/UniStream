@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false); 
+  const [isScrolled] = useState(false); 
   
 
   return (

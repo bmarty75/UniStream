@@ -18,7 +18,6 @@ function Footer() {
       <div className="container mx-auto px-4 py-12">
         {/* Links Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
-          /* Todo : Pour chaque catégorie de liens */
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
               <h3 className="font-bold mb-4 text-gray-300">
@@ -44,7 +43,6 @@ function Footer() {
 
         {/* Social Icons */}
         <div className="flex justify-center space-x-6 mb-8">
-          /* Todo : Pour chaque icone */
           {socialIcons.map(({ name, logo }) => (
             <a key={name} href="#" className="w-10 h-10 bg-gray-800 hover:bg-gray-700 rounded-full flex items-center justify-center transition-colors" aria-label={name}>
               <span className="text-xl">{logo}</span>
