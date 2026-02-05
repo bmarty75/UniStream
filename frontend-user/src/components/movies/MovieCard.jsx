@@ -21,7 +21,7 @@ function MovieCard({ movie }) {
       </div>
 
       {/* Overlay au hover */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4"> [cite: 1327, 1354]
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
         <h3 className="text-xl font-bold mb-2">{movie.title}</h3>
 
         <div className="flex items-center space-x-3 mb-3 text-sm">
