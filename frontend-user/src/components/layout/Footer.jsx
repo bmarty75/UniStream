@@ -53,5 +53,4 @@ function Footer() {
   );
 }
 
-// CETTE LIGNE EST ESSENTIELLE POUR CORRIGER L'ERREUR VITE
 export default Footer;
