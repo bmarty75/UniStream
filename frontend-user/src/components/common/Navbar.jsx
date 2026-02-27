@@ -1,44 +1,81 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import SearchBar from './SearchBar';
 
-function Navbar() {
-  const [isScrolled] = useState(false); 
-  
+function Navbar({ cart, onRemove }) {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-colors duration-300 ${
-      isScrolled ? 'bg-black' : 'bg-gradient-to-b from-black/80 to-transparent'
-    }`}>
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          
-          <div className="flex items-center space-x-8">
-            <h1 className="text-primary text-3xl font-bold tracking-tight">
-              Unistream
-            </h1>
+    <nav className="flex items-center justify-between px-8 py-4 bg-gradient-to-b from-black to-transparent fixed w-full z-50">
+      <div className="text-[#22c55e] font-black text-3xl tracking-tighter cursor-pointer uppercase">
+        UNIFLIX
+      </div>
+      
+      <div className="flex items-center space-x-6">
+        <SearchBar />
+        
+        <div className="relative">
+          <button 
+            onClick={() => setIsOpen(!isOpen)}
+            className="relative cursor-pointer hover:text-gray-300 transition-colors p-2 focus:outline-none"
+          >
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              className="h-7 w-7" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" 
+              />
+            </svg>
+            {cart.length > 0 && (
+              <span className="absolute top-0 right-0 bg-[#22c55e] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center">
+                {cart.length}
+              </span>
+            )}
+          </button>
 
-            <ul className="hidden md:flex space-x-6">
-              <li>
-                <a href="#" className="hover:text-gray-300 transition-colors">Accueil</a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-gray-300 transition-colors">Films</a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-gray-300 transition-colors">Mes locations</a>
-              </li>
-            </ul>
-          </div>
-
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-4">
-              <SearchBar />
+          {isOpen && (
+            <div className="absolute right-0 mt-2 w-80 bg-gray-900 border border-gray-800 rounded-lg shadow-2xl z-50 overflow-hidden">
+              <div className="p-4 border-b border-gray-800 font-bold text-sm">
+                <span>Mon Panier</span>
+              </div>
+              
+              <div className="max-h-96 overflow-y-auto">
+                {cart.length === 0 ? (
+                  <div className="p-8 text-center text-gray-500 text-sm">
+                    Votre panier est vide
+                  </div>
+                ) : (
+                  cart.map((movie) => (
+                    <div 
+                      key={movie.id} 
+                      onDoubleClick={() => onRemove(movie.id)}
+                      className="flex items-center gap-3 p-3 hover:bg-gray-800 cursor-pointer transition-colors border-b border-gray-800 last:border-none select-none"
+                    >
+                      <img 
+                        src={`https://image.tmdb.org/t/p/w92${movie.poster}`} 
+                        alt={movie.title} 
+                        className="w-10 h-14 object-cover rounded shadow-md"
+                      />
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-bold text-white truncate">{movie.title}</div>
+                        <div className="text-xs text-gray-400">{movie.price}€</div>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
             </div>
-            <div className="w-8 h-8 bg-primary rounded flex items-center justify-center cursor-pointer hover:bg-primary-dark transition-colors">
-              <span className="text-sm font-bold">U</span>
-            </div>
-          </div>
+          )}
+        </div>
 
+        <div className="w-8 h-8 bg-[#22c55e] rounded flex items-center justify-center font-bold text-sm text-white">
+          U
         </div>
       </div>
     </nav>
