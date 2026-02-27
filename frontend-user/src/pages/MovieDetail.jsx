@@ -20,35 +20,14 @@ function MovieDetail() {
   }, [id]);
 
   const handleRent = () => {
-    const isAuthenticated = localStorage.getItem('user') !== null;
-    
-    if (!isAuthenticated) {
+    const user = localStorage.getItem('user');
+    if (!user) {
       navigate('/login');
       return;
     }
 
-    const rental = { 
-      ...movie, 
-      rentalDate: new Date().toISOString(), 
-      expiryDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString() 
-    };
-
-    const existingRentals = JSON.parse(localStorage.getItem('rentals') || '[]');
-    const alreadyRented = existingRentals.some(r => r.id === movie.id);
-
-    if (alreadyRented) {
-      setNotification({ type: 'error', message: 'Vous avez déjà loué ce film' });
-      return;
-    }
-
-    const updatedRentals = [...existingRentals, rental];
-    localStorage.setItem('rentals', JSON.stringify(updatedRentals));
-    
-    setNotification({ type: 'success', message: 'Film loué avec succès !' });
-
-    setTimeout(() => {
-      navigate('/my-rentals');
-    }, 2000);
+    setNotification({ type: 'success', message: 'Action enregistrée' });
+    setTimeout(() => navigate('/my-rentals'), 2000);
   };
 
   if (loading) return <div className="min-h-screen bg-black flex items-center justify-center text-white">Chargement...</div>;
@@ -59,34 +38,44 @@ function MovieDetail() {
       <Navbar />
       
       {notification && (
-        <div className={`fixed top-20 right-4 px-6 py-3 rounded-lg shadow-xl z-50 ${
-          notification.type === 'success' ? 'bg-green-500' : 'bg-red-500'
-        }`}>
+        <div className={`fixed top-20 right-4 px-6 py-3 rounded-lg shadow-xl z-50 ${notification.type === 'success' ? 'bg-green-500' : 'bg-red-500'}`}>
           {notification.message}
         </div>
       )}
 
-      <div className="relative h-[75vh] w-full">
+      <div className="relative h-[85vh] w-full">
         <div className="absolute inset-0">
-          <img src={`https://image.tmdb.org/t/p/original${movie.poster}`} alt="" className="w-full h-full object-cover opacity-40" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
+          <img 
+            src={`https://image.tmdb.org/t/p/original${movie.backdrop || movie.poster}`} 
+            alt="" 
+            className="w-full h-full object-cover opacity-50 object-top" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black" />
         </div>
+
         <div className="absolute top-24 left-8 z-10">
           <Breadcrumb items={[{ label: 'Films', path: '/' }, { label: movie.genre }, { label: movie.title }]} />
         </div>
-        <div className="absolute bottom-0 left-0 p-8 w-full flex flex-col md:flex-row gap-8 items-end">
-          <img src={`https://image.tmdb.org/t/p/w500${movie.poster}`} alt={movie.title} className="w-64 rounded-lg shadow-2xl hidden md:block" />
-          <div className="flex-1">
-            <h1 className="text-5xl font-black mb-4 uppercase">{movie.title}</h1>
-            <div className="flex items-center space-x-4 mb-6 text-lg">
+
+        <div className="absolute bottom-0 left-0 p-12 w-full flex flex-col md:flex-row gap-10 items-end">
+          <img 
+            src={`https://image.tmdb.org/t/p/w500${movie.poster}`} 
+            alt={movie.title} 
+            className="w-72 rounded-lg shadow-2xl hidden md:block border border-white/10" 
+          />
+          
+          <div className="flex-1 pb-4">
+            <h1 className="text-6xl font-black mb-4 uppercase tracking-tighter">{movie.title}</h1>
+            <div className="flex items-center space-x-4 mb-6 text-xl">
               <span className="text-[#22c55e] font-bold">{movie.rating}/10</span>
               <span className="text-gray-400">{movie.year}</span>
+              <span className="border border-gray-600 px-3 py-1 text-xs rounded-full uppercase">{movie.genre}</span>
             </div>
-            <p className="text-gray-300 text-lg max-w-3xl mb-8 leading-relaxed italic">
+            <p className="text-gray-300 text-lg max-w-2xl mb-10 leading-relaxed">
               {movie.description}
             </p>
-            <Button size="lg" onClick={handleRent} className="bg-[#22c55e] hover:bg-[#1ea34d] mb-8">
-              🎬 Louer pour {movie.price}€
+            <Button size="lg" onClick={handleRent} className="bg-[#22c55e] hover:bg-[#1ea34d] px-12 py-4 text-xl">
+              Louer pour {movie.price}€
             </Button>
           </div>
         </div>
