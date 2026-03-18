@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import connectDB from './config/database.js';
+import movieRoutes from './routes/movie.routes.js';
+import rentalRoutes from './routes/rental.routes.js';
 
 dotenv.config();
 const app = express();
@@ -16,6 +18,9 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use('/api/movies', movieRoutes);
+app.use('/api/rentals', rentalRoutes);
 
 if (process.env.NODE_ENV === 'development') {
   app.use((req, res, next) => {
@@ -42,15 +47,6 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-app.get('/api/movies', (req, res) => {
-  res.json({
-    success: true,
-    data: [
-      { id: 1, title: 'Inception', year: 2010 },
-      { id: 2, title: 'The Dark Knight', year: 2008 }
-    ]
-  });
-});
 
 app.use((req, res) => {
   res.status(404).json({ success: false, message: 'Route not found' });
