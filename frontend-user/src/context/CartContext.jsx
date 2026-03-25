@@ -6,23 +6,45 @@ export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
   const [rentals, setRentals] = useState([]);
 
+  // Charger depuis localStorage au démarrage
+  useEffect(() => {
+    const savedCart = localStorage.getItem('cart');
+    const savedRentals = localStorage.getItem('rentals');
+    if (savedCart) setCart(JSON.parse(savedCart));
+    if (savedRentals) setRentals(JSON.parse(savedRentals));
+  }, []);
+
+  // Sauvegarder à chaque modification
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
+
+  useEffect(() => {
+    localStorage.setItem('rentals', JSON.stringify(rentals));
+  }, [rentals]);
+
   const addToCart = (movie) => {
     if (!cart.find(m => m.id === movie.id)) {
-      setCart([...cart, movie]);
+      setCart(prev => [...prev, movie]);
     }
   };
 
-  const removeFromCart = (movieId) => setCart(cart.filter(m => m.id !== movieId));
+  const removeFromCart = (movieId) => {
+    setCart(prev => prev.filter(m => m.id !== movieId));
+  };
+
   const clearCart = () => setCart([]);
+
   const getCartTotal = () => cart.reduce((total, movie) => total + movie.price, 0);
 
-  // Louer un seul film
+  const getCartCount = () => cart.length;
+
   const rentMovie = (movie) => {
     const rentalDate = new Date();
     const expiryDate = new Date();
     expiryDate.setDate(expiryDate.getDate() + 7);
 
-    const newRental = {
+    const rental = {
       id: Date.now(),
       movieId: movie.id,
       title: movie.title,
@@ -32,24 +54,16 @@ export function CartProvider({ children }) {
       expiryDate: expiryDate.toISOString()
     };
 
-    setRentals([...rentals, newRental]);
+    setRentals(prev => [...prev, rental]);
     removeFromCart(movie.id);
-    return { success: true, rental: newRental };
+    return { success: true, rental };
   };
 
-
-
-  const isInCart = (movieId) => {
-    return cart.some(m => m.id === movieId);
-  };
-
-  // Louer tous les films du panier d'un coup 
   const rentAllInCart = () => {
     const newRentals = cart.map(movie => {
       const rentalDate = new Date();
       const expiryDate = new Date();
       expiryDate.setDate(expiryDate.getDate() + 7);
-
       return {
         id: Date.now() + Math.random(),
         movieId: movie.id,
@@ -61,25 +75,34 @@ export function CartProvider({ children }) {
       };
     });
 
-    setRentals([...rentals, ...newRentals]);
+    setRentals(prev => [...prev, ...newRentals]);
     clearCart();
     return { success: true, count: newRentals.length };
   };
 
-  // On n'oublie pas de les exporter dans value ! [cite: 335-348]
-  const value = { 
-    cart, 
-    rentals, 
-    addToCart, 
-    removeFromCart, 
-    clearCart, 
-    getCartTotal, 
-    rentMovie, 
-    isInCart, 
-    rentAllInCart 
+  const isRented = (movieId) => rentals.some(r => r.movieId === movieId);
+
+  const getRentalByMovieId = (movieId) => rentals.find(r => r.movieId === movieId);
+
+  const isInCart = (movieId) => cart.some(m => m.id === movieId);
+
+  const value = {
+    cart, rentals,
+    addToCart, removeFromCart, clearCart,
+    getCartTotal, getCartCount,
+    rentMovie, rentAllInCart,
+    isRented, getRentalByMovieId, isInCart
   };
-  
-  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
+
+  return (
+    <CartContext.Provider value={value}>
+      {children}
+    </CartContext.Provider>
+  );
 }
 
-export const useCart = () => useContext(CartContext);
+export function useCart() {
+  const context = useContext(CartContext);
+  if (!context) throw new Error('useCart must be used within CartProvider');
+  return context;
+}
