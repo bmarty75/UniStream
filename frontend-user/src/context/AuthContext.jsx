@@ -22,7 +22,7 @@ export function AuthProvider({ children }) {
         id: Date.now(),
         email: email,
         name: email.split('@')[0],
-        avatar: `https://ui-avatars.com/api/?name=${email}&background=e50914&color=fff`
+        avatar: `https://ui-avatars.com/api/?name=${email}&background=16a34a&color=fff`
       };
       setUser(mockUser);
       localStorage.setItem('user', JSON.stringify(mockUser));
@@ -39,7 +39,7 @@ export function AuthProvider({ children }) {
         id: Date.now(),
         email,
         name,
-        avatar: `https://ui-avatars.com/api/?name=${name}&background=e50914&color=fff`
+        avatar: `https://ui-avatars.com/api/?name=${name}&background=16a34a&color=fff`
       };
       setUser(mockUser);
       localStorage.setItem('user', JSON.stringify(mockUser));

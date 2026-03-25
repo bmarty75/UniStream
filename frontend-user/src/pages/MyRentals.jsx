@@ -58,7 +58,7 @@ function MyRentals() {
                   />
                   <div className="mt-2">
                     <h3 className="font-semibold truncate">{rental.title}</h3>
-                    <p className="text-sm text-red-400">Expiré</p>
+                    <p className="text-sm text-green-400">Expiré</p>
                   </div>
                 </div>
               ))}
@@ -75,7 +75,7 @@ function MyRentals() {
             </svg>
             <p className="text-2xl text-gray-400 mb-6">Aucune location pour le moment</p>
             <Link to="/">
-              <button className="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg transition">
+              <button className="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg transition">
                 Découvrir des films
               </button>
             </Link>

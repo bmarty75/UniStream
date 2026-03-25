@@ -18,7 +18,7 @@ function Navbar() {
 
   return (
     <nav className="flex items-center justify-between px-8 py-4 bg-gradient-to-b from-black to-transparent fixed w-full z-50">
-      <Link to="/" className="text-red-600 font-black text-3xl tracking-tighter cursor-pointer uppercase">
+      <Link to="/" className="text-green-500 font-black text-3xl tracking-tighter cursor-pointer uppercase">
         UNIFLIX
       </Link>
 
@@ -52,7 +52,7 @@ function Navbar() {
             />
           </svg>
           {getCartCount() > 0 && (
-            <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+            <span className="absolute -top-1 -right-1 bg-green-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
               {getCartCount()}
             </span>
           )}
@@ -68,7 +68,7 @@ function Navbar() {
               <img
                 src={user.avatar}
                 alt={user.name}
-                className="w-8 h-8 rounded cursor-pointer hover:ring-2 hover:ring-red-500 transition"
+                className="w-8 h-8 rounded cursor-pointer hover:ring-2 hover:ring-green-500 transition"
               />
               <span className="hidden md:block text-sm text-white">{user.name}</span>
             </button>
@@ -94,7 +94,7 @@ function Navbar() {
           </div>
         ) : (
           <Link to="/login">
-            <button className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded transition text-sm font-bold">
+            <button className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded transition text-sm font-bold">
               Connexion
             </button>
           </Link>
