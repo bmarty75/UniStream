@@ -5,6 +5,8 @@ import Footer from '../components/layout/Footer';
 import Breadcrumb from '../components/common/Breadcrumb';
 import Button from '../components/common/Button';
 import moviesData from '../data/movies.json';
+import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';
 
 function MovieDetail() {
   const { id } = useParams();
@@ -13,6 +15,9 @@ function MovieDetail() {
   const [loading, setLoading] = useState(true);
   const [notification, setNotification] = useState(null);
 
+  const { isAuthenticated } = useAuth();
+  const { addToCart, isInCart, rentMovie } = useCart();
+
   useEffect(() => {
     const foundMovie = moviesData.find(m => m.id.toString() === id);
     setMovie(foundMovie);
@@ -20,12 +25,12 @@ function MovieDetail() {
   }, [id]);
 
   const handleRent = () => {
-    const user = localStorage.getItem('user');
-    if (!user) {
+    if (!isAuthenticated()) {
       navigate('/login');
       return;
     }
 
+    rentMovie(movie);
     setNotification({ type: 'success', message: 'Action enregistrée' });
     setTimeout(() => navigate('/my-rentals'), 2000);
   };
@@ -74,9 +79,23 @@ function MovieDetail() {
             <p className="text-gray-300 text-lg max-w-2xl mb-10 leading-relaxed">
               {movie.description}
             </p>
-            <Button size="lg" onClick={handleRent} className="bg-[#22c55e] hover:bg-[#1ea34d] px-12 py-4 text-xl">
-              Louer pour {movie.price}€
-            </Button>
+            
+            <div className="flex flex-wrap gap-4">
+              <Button size="lg" onClick={handleRent} className="bg-[#22c55e] hover:bg-[#1ea34d] px-12 py-4 text-xl">
+                Louer maintenant - {movie.price}€
+              </Button>
+              
+              {isInCart(movie.id) ? (
+                <Button size="lg" className="bg-gray-600 cursor-not-allowed px-12 py-4 text-xl">
+                  Dans le panier
+                </Button>
+              ) : (
+                <Button size="lg" onClick={() => addToCart(movie)} className="bg-gray-800 border border-gray-600 hover:bg-gray-700 px-12 py-4 text-xl">
+                  + Ajouter au panier
+                </Button>
+              )}
+            </div>
+
           </div>
         </div>
       </div>
